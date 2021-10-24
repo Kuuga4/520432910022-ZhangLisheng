@@ -1,0 +1,51 @@
+int cellSize = 10;
+color c = color(random(255),random(255),random(255),50);
+
+void setup(){
+  size(900,900);
+  smooth();
+  background(0);
+}
+
+void draw(){
+  keyPressed();
+}
+
+void keyPressed(){
+  if(key == 'e' || key == 'E'){
+    if(mousePressed){
+      noStroke();
+      fill(c);
+      ellipse(mouseX,mouseY,cellSize,cellSize);
+    }
+  }else if(key == 'r' || key == 'R'){
+     if(mousePressed){
+       noStroke();
+       fill(c);
+       rectMode(CENTER);
+       rect(mouseX,mouseY,cellSize,cellSize);
+    }
+  }else if(key == 't' || key == 'T'){
+     if(mousePressed){
+       noStroke();
+       fill(c);
+       triangle(mouseX-5,mouseY+5,mouseX+5,mouseY+5,
+                mouseX,mouseY-5);
+    }
+  }else if(key == 'l' || key == 'L'){
+     if(mousePressed){
+       stroke(c);
+       float weight = dist(mouseX,mouseY,pmouseX,pmouseY);
+       strokeWeight(weight);      
+       smooth();
+       line(mouseX,mouseY,pmouseX,pmouseY);
+    }
+  }else if(key == 'c' || key == 'C'){
+     background(0);
+  }else if(key == 'n' || key == 'N'){
+    c = color(random(255),random(255),random(255),200);
+  }else if(key == 's' || key == 'S'){
+    save("sketch"+year()+"_"+month()+"_"+day()
+          +"_"+hour()+"_"+minute()+"_"+second()+".jpg");
+  }
+}
