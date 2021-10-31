@@ -1,0 +1,115 @@
+int totalNum = 50;
+Particles[] particles;
+
+void setup(){
+  size(960,960);
+  particles = new Particles[totalNum];
+  initialize();
+
+}
+
+void draw(){
+  background(0);
+  for(int i = 0; i < particles.length; i ++){
+    PVector creatForce = new PVector(random(-0.5,0.5),random(-0.5,0.5));
+    
+    particles[i].applyForce(creatForce);
+    particles[i].update();
+    particles[i].display();
+    particles[i].bigEatsmall(); 
+    particles[i].checkEdge();
+  }
+  for(Particles p : particles){
+    if(p.mass > 27){
+      p.mass = 0;
+      initialize();
+    }
+  }
+}
+
+void initialize(){
+  for(int i = 0; i < particles.length; i ++){
+  particles[i] = new Particles();
+  }  
+}
+
+void keyPressed(){
+  if(key == 'r'){
+    initialize();
+  }
+}
+
+class Particles{
+  PVector location;
+  PVector velocity;
+  PVector acceleration;
+  float mass;
+  color c = color(random(255),random(255),random(255));
+  
+  Particles(){
+    location = new PVector(random(width),random(height));
+    velocity = PVector.random2D();
+    acceleration = new PVector();
+    mass = random(1,5);
+  }
+  
+  void applyForce(PVector force){
+    PVector f = PVector.div(force,mass);
+    acceleration.add(f);
+  }
+  
+  void bigEatsmall(){
+    for(int i = 0; i < totalNum; i ++){
+      for(int j = 0; j < totalNum; j ++){  
+        if(i != j){
+          PVector dist = PVector.sub(particles[i].location,particles[j].location);
+          if(dist.mag() < (particles[i].mass + particles[j].mass*8)){
+            if(particles[i].mass < particles[j].mass){              
+              particles[j].mass +=particles[i].mass/2;
+              particles[i].mass = 0;
+              //println(particles[j].mass);
+            }else if(particles[i].mass > particles[j].mass){
+              particles[i].mass += particles[j].mass/2;
+              particles[j].mass = 0;
+              //println(particles[i].mass);
+           }else{
+             velocity.add(dist);
+             velocity.limit(5);
+            }           
+          }
+        }
+      }     
+    }
+  }
+       
+  void update(){
+    velocity.add(acceleration);
+    location.add(velocity);
+    acceleration.mult(0);
+  }
+  
+  void display(){
+    noStroke();
+    fill(c);
+    ellipse(location.x,location.y,mass*16,mass*16);
+  }
+  
+  void checkEdge(){
+    if(location.x < 0){
+      velocity.x *= -1;
+      location.x = 0;
+      
+    }else if(location.x > width){
+      location.x = width;
+      velocity.x *= -1;
+    }
+    
+    if(location.y > height){
+      velocity.y *= -1;
+      location.y = height;
+    }else if(location.y < 0){
+      velocity.y *= -1;
+      location.y = 0;
+    }    
+  }  
+}
