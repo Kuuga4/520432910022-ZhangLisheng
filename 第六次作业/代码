@@ -1,4 +1,5 @@
 int totalNum = 50;
+int scalar = 1;
 Particles[] particles;
 
 void setup(){
@@ -9,9 +10,12 @@ void setup(){
 }
 
 void draw(){
-  background(0);
+  //background(0);
+  fill(0,15);
+  noStroke();
+  rect(0,0,960,960);
   for(int i = 0; i < particles.length; i ++){
-    PVector creatForce = new PVector(random(-0.5,0.5),random(-0.5,0.5));
+    PVector creatForce = new PVector(random(-scalar,scalar),random(-scalar,scalar));
     
     particles[i].applyForce(creatForce);
     particles[i].update();
@@ -20,7 +24,7 @@ void draw(){
     particles[i].checkEdge();
   }
   for(Particles p : particles){
-    if(p.mass > 27){
+    if(p.mass > 25){
       p.mass = 0;
       initialize();
     }
@@ -44,7 +48,7 @@ class Particles{
   PVector velocity;
   PVector acceleration;
   float mass;
-  color c = color(random(255),random(255),random(255));
+  color c = color(random(255),random(255),random(255),225);
   
   Particles(){
     location = new PVector(random(width),random(height));
@@ -91,7 +95,7 @@ class Particles{
   void display(){
     noStroke();
     fill(c);
-    ellipse(location.x,location.y,mass*16,mass*16);
+    ellipse(location.x,location.y,mass*12,mass*12);
   }
   
   void checkEdge(){
