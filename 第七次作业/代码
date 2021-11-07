@@ -1,0 +1,129 @@
+int circleType = 0;
+float scalar = 1024;
+boolean interaction = false;
+
+void setup() {
+  fullScreen();
+  
+}
+
+void draw() {
+
+  background(0);
+  fill(255);
+  if(interaction == false){
+    frameRate(1);
+    if(scalar > 4){
+      scalar /= 2;
+    }else{
+      interaction =true;
+      frameRate(30);
+    }
+  }
+  
+  if(circleType == 0) drawCircle0(width/2,height/2,540);
+  else if(circleType == 1) drawCircle1(width/2,height/2+90,600);
+  else if(circleType == 2) drawCircle2(width/2,height/2+240,600);
+  else if(circleType == 3) drawCircle3(width/2,height/2-230,600);
+  else if(circleType == 4) drawCircle4(width/2,height/2,800);
+}
+
+void drawCircle0(float x,float y,float d){
+  ellipse(x,y,d,d);
+  if(d > scalar){
+    noStroke();
+    d *= 0.5;
+    fill(255);
+    drawCircle0(x+d,y,d);
+    fill(0);
+    drawCircle0(x-d,y,d);
+    fill(255);
+    drawCircle0(x,y-d,d);
+    fill(0);
+    drawCircle0(x,y+d,d);
+  }  
+}
+
+void drawCircle1(float x,float y,float d){
+  ellipse(x,y,d,d);
+  if(d > scalar){
+    d *= 0.5;
+    noStroke();
+    fill(255);
+    drawCircle1(x+d,y,d);
+    fill(255);
+    drawCircle1(x-d,y,d);
+    fill(0);
+    drawCircle1(x,y-d,d);
+    fill(0);
+    drawCircle1(x,-y-d/0.4,d);
+  }  
+}
+
+void drawCircle2(float x,float y,float d){
+  ellipse(x,y,d,d);
+  if(d > scalar){
+    
+    d *= 0.5;
+    fill(255);
+    drawCircle2(x+d,y,d);
+    fill(0);
+    drawCircle2(x-d,y,d);
+    fill(255);
+    drawCircle2(x,y-d*1.3,d);
+    fill(0);
+    drawCircle2(x,y+d*0.5,d);
+  }  
+}
+
+void drawCircle3(float x,float y,float d){
+  ellipse(x,y,d,d);
+  if(d > scalar){
+    noStroke();
+    d *= 0.5;
+    fill(255);
+    drawCircle3(x+d*0.5,y,d);
+    fill(0);   
+    drawCircle3(x-d*0.5,y,d);
+    fill(0);
+    drawCircle3(x,y+d*0.5,d);
+    fill(255);
+    drawCircle3(x,-y-d*2.5,d);
+  }  
+}
+
+void drawCircle4(float x,float y,float d){
+  ellipse(x,y,d,d);
+  if(d > scalar){
+    d *= 0.5;    
+    drawCircle4(x+d,y,d);
+    fill(0);
+    drawCircle4(x-d,y,d);    
+    drawCircle4(x,y-d,d);    
+    drawCircle4(x,y+d,d);
+  }  
+}
+
+void keyPressed(){
+  if(interaction == true){
+    if(scalar >= 4){
+      if(key == CODED && keyCode == DOWN){
+        scalar *= 2;
+      }else if(key == CODED && keyCode == UP){
+        scalar /= 2;
+      }      
+    }else{
+      scalar = 4;
+    }
+  }
+}
+
+void mousePressed(){
+  if(mousePressed){
+    if(mouseButton == RIGHT){
+      scalar = 1024;
+      interaction = false;
+      circleType = (circleType + 1) % 5;
+    }
+  }
+}
