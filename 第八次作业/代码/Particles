@@ -1,0 +1,115 @@
+class Particles{
+  PVector location;
+  PVector velocity;
+  PVector acceleration;
+  float mass;
+  color c = color(random(255),random(255),random(255),225);
+  
+  Particles(){
+    location = new PVector(random(width),random(height));
+    velocity = PVector.random2D();
+    acceleration = new PVector();
+    mass = random(1,5);
+  }
+  
+  void applyForce(PVector force){
+    PVector f = PVector.div(force,mass);
+    acceleration.add(f);
+  }
+  
+  void bigEatsmall(){
+    for(int i = 0; i < totalNum; i ++){
+      for(int j = 0; j < totalNum; j ++){  
+        if(i != j){
+          PVector dist = PVector.sub(particles[i].location,particles[j].location);
+          if(dist.mag() < (particles[i].mass + particles[j].mass*8)){
+            if(particles[i].mass < particles[j].mass){              
+              particles[j].mass +=particles[i].mass/2;
+              particles[i].mass = 0;
+              //println(particles[j].mass);
+            }else if(particles[i].mass > particles[j].mass){
+              particles[i].mass += particles[j].mass/2;
+              particles[j].mass = 0;
+              //println(particles[i].mass);
+           }//else{
+           //  velocity.add(dist);
+           //  velocity.limit(5);
+           // }           
+          }
+        }
+      }     
+    }
+  }
+  
+  void collision(){
+    for(Particles p :  particles){
+      float d = PVector.dist(location,p.location);
+      if(d > 0 && d < (mass + p.mass)*8){
+        PVector impact = PVector.sub(location,p.location);
+        PVector a = PVector.div(impact,mass);
+        velocity.add(a);
+        velocity.limit(speed);
+      }
+    }
+  }    
+       
+  void update(){
+    velocity.add(acceleration);
+    location.add(velocity);
+    acceleration.mult(0);
+  }
+  
+  void display(){
+    noStroke();
+    fill(c);
+    ellipse(location.x, location.y, mass*12, mass*12);    
+  }
+  
+  //void type1(){
+  //  noStroke();
+  //  fill(c1);
+  //  ellipse(location.x, location.y, mass*12, mass*12);
+  //}
+  
+  //void type2(){
+  //  noStroke();
+  //  fill(c2);
+  //  ellipse(location.x, location.y, mass*12, mass*12);
+  //}
+  
+  //void type3(){
+  //  noStroke();
+  //  fill(c3);
+  //  ellipse(location.x, location.y, mass*12, mass*12);
+  //} 
+  
+  PVector attract(Particles p) {
+    PVector force = PVector.sub(this.location, p.location);           
+    float distance = force.mag();                                
+    distance = constrain(distance, 60.0, 120.0);
+    force.normalize();
+
+    float strength = (g * mass * p.mass) / (distance * distance);
+    force.mult(strength);
+    return force;
+  }
+  
+  void checkEdge(){
+    if(location.x < 0){
+      velocity.x *= -1;
+      location.x = 0;
+      
+    }else if(location.x > width){
+      location.x = width;
+      velocity.x *= -1;
+    }
+    
+    if(location.y > height){
+      velocity.y *= -1;
+      location.y = height;
+    }else if(location.y < 0){
+      velocity.y *= -1;
+      location.y = 0;
+    }    
+  }  
+}
