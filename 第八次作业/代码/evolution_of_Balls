@@ -1,0 +1,76 @@
+Particles[] particles;
+boolean eatOrnot = true;
+
+PFont font;
+
+float g = 2;
+float speed = 1.0;
+int totalNum = 60;
+int index = 2;
+int limit = 25;
+float scalar = 0.5;
+int generation = 1;
+PVector creatForce; 
+
+//color c1 = color(255,0,0,225);
+//color c2 = color(255,255,0,225);
+//color c3 = color(0,0,255,225);
+
+void setup(){
+  size(960,960);
+  particles = new Particles[totalNum];
+  initialize();
+
+  font = loadFont("MicrosoftYaHeiUI-24.vlw");
+}
+
+void draw(){
+  fill(255);
+  textSize(36);
+  text("Generation: " + generation ,20,40);
+  
+  creatForce = new PVector(random(-scalar,scalar),random(-scalar,scalar));
+  fill(0,20);
+  noStroke();
+  rect(0,0,960,960);
+
+  evolution();
+  
+  for(int i = 0; i < particles.length; i ++){
+    particles[i].applyForce(creatForce);
+    particles[i].update();
+    particles[i].display();    
+    
+    if(eatOrnot == true){
+    particles[i].bigEatsmall(); 
+    }
+    particles[i].checkEdge(); 
+    
+  }
+
+  for(Particles p : particles){
+    if(p.mass > limit){
+      p.mass = 0;
+      generation ++;
+      if(generation > 10 && generation < 15){
+      index ++;
+      limit -= 2.5;
+      }
+      initialize();
+    }
+  }
+
+  println(generation);
+}
+
+void initialize(){
+  for(int i = 0; i < particles.length; i ++){
+  particles[i] = new Particles();
+  }  
+}
+
+void keyPressed(){
+  if(key == 'r'){
+    initialize();
+  }
+}
