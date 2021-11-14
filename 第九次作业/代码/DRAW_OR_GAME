@@ -1,0 +1,166 @@
+ArrayList<Circle> circles;
+
+PVector[] center = new PVector[8];
+PVector[] dist = new PVector[8];
+
+boolean controlLine1 = false;
+boolean controlLine2 = false;
+boolean controlLine3 = false;
+boolean controlLine4 = false;
+boolean controlRect = false;
+boolean controlCircle = false;
+boolean controlSeg= false;
+boolean controlClear = false;
+
+void setup(){
+  size(1500,1000);
+  background(210,212,213);
+  
+  showinterface();
+
+  circles = new ArrayList<Circle>();
+}
+
+void draw(){
+  strokeWeight(1);
+  
+  if(controlCircle == true) showinterface();
+
+  for(int i = 0;i <8;i ++){
+    center[i] = new PVector(70, 165+i*82);
+    
+  }
+  
+  PVector mouse = new PVector(mouseX,mouseY);
+
+  for(int i = 0;i <8;i ++){
+    dist[i] = PVector.sub(mouse,center[i]);
+  }  
+  
+  //if(mousePressed)
+  //println(dist[1].mag());
+  
+  // 画线
+  if(mousePressed){       
+    if(dist[0].mag() < 35){
+     
+     controlLine1 = false;
+     controlLine2 = true;
+     controlLine3 = false;
+     controlLine4 = false;
+     controlRect = false;
+     controlCircle = false;
+     controlSeg= false;
+     controlClear = false; 
+     
+      //drawLine2();      
+    }else if(dist[1].mag() < 35){
+     
+     controlLine1 = false;
+     controlLine2 = false;
+     controlLine3 = false;
+     controlLine4 = false;
+     controlRect = true;
+     controlCircle = false;
+     controlSeg= false;
+     controlClear = false;       
+      
+      //displayRect();
+    }else if(dist[2].mag() < 35){
+     
+     controlLine1 = false;
+     controlLine2 = false;
+     controlLine3 = false;
+     controlLine4 = false;
+     controlRect = false;
+     controlCircle = true;
+     controlSeg= false;
+     controlClear = false;       
+            
+      //displayCirle();
+    }else if(dist[3].mag() < 35){
+     
+     controlLine1 = false;
+     controlLine2 = false;
+     controlLine3 = false;
+     controlLine4 = false;
+     controlRect = false;
+     controlCircle = false;
+     controlSeg= true;
+     controlClear = false;       
+                  
+      //displaySeg();
+    }else if(dist[4].mag() < 35){
+     
+     controlLine1 = false;
+     controlLine2 = false;
+     controlLine3 = true;
+     controlLine4 = false;
+     controlRect = false;
+     controlCircle = false;
+     controlSeg= false;
+     controlClear = false;       
+                  
+      //drawLine3();
+    }else if(dist[5].mag() < 35){
+     
+     controlLine1 = true;
+     controlLine2 = false;
+     controlLine3 = false;
+     controlLine4 = false;
+     controlRect = false;
+     controlCircle = false;
+     controlSeg= false;
+     controlClear = false;       
+                 
+      //drawLine1();
+    }else if(dist[6].mag() < 35){
+     
+     controlLine1 = false;
+     controlLine2 = false;
+     controlLine3 = false;
+     controlLine4 = true;
+     controlRect = false;
+     controlCircle = false;
+     controlSeg= false;
+     controlClear = false;       
+            
+      //drawLine4();
+    }else if(dist[7].mag() < 35){
+     
+     controlLine1 = false;
+     controlLine2 = false;
+     controlLine3 = false;
+     controlLine4 = false;
+     controlRect = false;
+     controlCircle = false;
+     controlSeg= false;
+     controlClear = true;       
+            
+      //noStroke();
+      //fill(251,246,246);
+      //ellipse(mouseX,mouseY,8,8);
+    }
+  }
+      
+    if(controlLine1 == true) drawLine1();
+    else if(controlLine2 == true) drawLine2();
+    else if(controlLine3 == true) drawLine3();
+    else if(controlLine4 == true) drawLine4();
+   // else if(controlRect == true) displayRect();
+    else if(controlCircle == true) displayCircle();
+    else if(controlSeg == true) displaySeg();
+    else if(controlClear == true){
+      clean();        
+    }  
+}
+
+void clean(){
+  stroke(0);
+  fill(251,246,246);
+  rect(138,106,1345,872,40);   
+}
+
+void mousePressed(){
+  circles.add(new Circle());
+}
