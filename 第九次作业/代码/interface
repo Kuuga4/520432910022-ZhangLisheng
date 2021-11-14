@@ -1,0 +1,85 @@
+PFont myFont;
+
+void showinterface(){
+  // 背景板
+  noStroke();
+  fill(210,212,213);
+  rect(0,0,1500,1000);
+  stroke(0);
+  
+  // 画板
+  fill(251,246,246);
+  rect(138,106,1346,872,40);
+  
+  // 工具栏
+  fill(190,187,187);
+  rect(24,106,92,872,46);
+  
+  // 标题栏
+  fill(190,187,187);
+  rect(681,12,259,54,10);
+  
+  noStroke();
+  
+  // 工具框
+  fill(251,246,246);
+  ellipseMode(CORNER);
+  for(int i = 0;i < 8; i++){
+    ellipse(35,130+82*i,70,70);
+  }
+  
+  stroke(0);
+  
+  // 线
+  strokeCap(ROUND);
+  strokeWeight(4);
+  line(50,182,90,154);
+  
+  noStroke();
+  
+  // 矩形
+  fill(90,177,254);
+  rect(50,227,40,40);
+  
+  // 圆
+  ellipse(47,306,47,47);
+  
+  stroke(0);
+  noFill();
+  
+  // 曲线
+  bezier(48,398,68,384,71,437,91,423);
+  
+  // 中心点线
+  stroke(90,177,254);
+  strokeWeight(1);
+  line(66,500,94,474);
+  line(66,500,70,468);
+  line(66,500,50,480);
+  line(66,500,48,510);
+  line(66,500,90,515);
+  
+  // 对称线和彩线
+  for(int i = 0;i <15;i ++){
+    noStroke();
+    fill(50,i*15,i*15);
+    ellipse(48+i*3,667-i*2,6,6);
+    ellipse(42+i*2,570-i*1.5,6,6);
+    ellipse(46+i*2,575+i*1.5,6,6);
+  }
+  
+  // A drawing tool
+  fill(0);
+  myFont = loadFont("MicrosoftYaHeiUI-Bold-48.vlw");
+  String str = "DRAW OR GAME ";
+  textFont(myFont);
+  textSize(28);
+  textAlign(CENTER,CENTER);
+  text(str,815,40);
+  
+  textSize(18);
+  textAlign(CENTER,CENTER);
+  text("CLEAN",70,739);  
+  
+  strokeWeight(1);
+}
