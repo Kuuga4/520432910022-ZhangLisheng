@@ -1,0 +1,63 @@
+void drawLine1(){
+    if((mouseX < 1480) && (mouseX >142 && mouseY < 980) && (mouseY >110)){
+      if(mousePressed){
+        stroke(255,mouseX /6 ,mouseY /5);
+        strokeWeight(20);
+        line(pmouseX, pmouseY, mouseX, mouseY);
+        line(1621 - pmouseX, pmouseY,1621 -  mouseX, mouseY);
+        
+        stroke(255,mouseX /5,mouseY);
+        strokeWeight(5);
+        line(pmouseX, pmouseY, mouseX, mouseY);
+        line(1621 - pmouseX, pmouseY,1621 -  mouseX, mouseY);
+        
+        strokeWeight(16);
+        stroke(255,mouseY /5,mouseX);
+        line(pmouseX-5, pmouseY, mouseX, mouseY);
+        line(1621 - (pmouseX-5), pmouseY,1621 -  mouseX, mouseY);
+      }
+    }
+}
+
+void drawLine2(){
+    if((mouseX < 1480) && (mouseX >142 && mouseY < 980) && (mouseY >110)){
+      if(mousePressed){
+        stroke(94,177,254);
+        strokeWeight(3);
+    
+        line(pmouseX,pmouseY,mouseX,mouseY);
+        line(1621 - pmouseX,pmouseY,1621 - mouseX,mouseY);
+        line(pmouseX,1084 - pmouseY,mouseX,1084 - mouseY);
+        line(1621 - pmouseX,1084 - pmouseY,1621 - mouseX,1084 - mouseY);
+      }
+    }
+    
+}
+
+void drawLine3(){
+    if((mouseX < 1480) && (mouseX >142 && mouseY < 980) && (mouseY >110)){
+      if(mousePressed){  
+        stroke(94,177,254,30);
+        strokeWeight(3);
+        line(width/2,height/2, mouseX, mouseY);
+      }
+    }
+}
+
+void drawLine4(){
+    if((mouseX < 1480) && (mouseX >142 && mouseY < 980) && (mouseY >110)){
+      if(mousePressed){
+        stroke(255,mouseX /6 ,mouseY /5);
+        strokeWeight(20);
+        line(pmouseX, pmouseY, mouseX, mouseY);
+        
+        stroke(255,mouseX /5,mouseY);
+        strokeWeight(5);
+        line(pmouseX, pmouseY, mouseX, mouseY);
+        
+        strokeWeight(16);
+        stroke(255,mouseY /5,mouseX);
+        line(pmouseX-5, pmouseY, mouseX, mouseY);
+      }
+    }
+}
