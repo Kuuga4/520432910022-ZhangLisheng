@@ -1,0 +1,54 @@
+// 定义圆的类
+class Circle{
+  float x,y;
+  float diameter;
+  
+  Circle(){
+    x = mouseX;
+    y = mouseY;
+  }
+   
+  void drawCircle(){
+    fill(94,177,254);
+    noStroke();
+    ellipseMode(CENTER);
+    ellipse(x, y, diameter, diameter);
+      
+  }  
+  
+  void grow(){
+    if (mousePressed){
+      diameter = (dist(x, y, mouseX, mouseY))*2;
+    }
+  }
+    
+}
+
+ //画圆
+void displayCircle(){
+   if (circles.size() > 1) {
+    for (int i = 1; i < circles.size(); i++) {
+      Circle c = circles.get(i);
+      
+      for (int j = 0; j < int(random(0, circles.size()-1)); j++) {
+          Circle anotherc = circles.get(int(random(0,circles.size()-1)));
+          stroke(94,177,254);
+          strokeWeight(2);
+          if((c.x < 1480) && (c.x >142 && c.y < 980) && (c.y >110)){
+            if((anotherc.x < 1480) && (anotherc.x >142 &&
+                anotherc.y < 980) && (anotherc.y >110)){
+              line(c.x, c.y, anotherc.x, anotherc.y);
+            }
+         }
+      }
+    }
+  }
+    
+  for (int i = 0; i<circles.size(); i++){
+    Circle c = circles.get(i);
+    c.drawCircle();
+  }
+  if(mousePressed)    
+    circles.get(circles.size()-1).grow(); 
+    println(circles.size());
+  }
