@@ -1,5 +1,7 @@
 ArrayList<Circle> circles;
 
+color c = color(94,177,254);
+
 PVector[] center = new PVector[8];
 PVector[] dist = new PVector[8];
 
@@ -23,6 +25,11 @@ void setup(){
 
 void draw(){
   strokeWeight(1);
+  
+  if(keyPressed){
+    if(key == 'c') c = color(random(94),random(132,177),random(225,255));
+  }
+  
   
   if(controlCircle == true) showinterface();
 
@@ -147,12 +154,26 @@ void draw(){
     else if(controlLine2 == true) drawLine2();
     else if(controlLine3 == true) drawLine3();
     else if(controlLine4 == true) drawLine4();
-   // else if(controlRect == true) displayRect();
+    else if(controlRect == true){ 
+      if(keyPressed){
+        if(key == 'r'){
+          posX = 170;
+          posY = 130;
+          r = random(94.0,100.0);
+          g = random(177.0,180.0);
+          b = random(225.0,254.0); 
+        }
+      }
+      moveRect();
+     // frameRate(5);
+    }
     else if(controlCircle == true) displayCircle();
     else if(controlSeg == true) displaySeg();
     else if(controlClear == true){
       clean();        
     }  
+        
+    //saveImage();
 }
 
 void clean(){
@@ -163,4 +184,10 @@ void clean(){
 
 void mousePressed(){
   circles.add(new Circle());
+}
+
+void changeColor(){
+  if(keyPressed == true)
+  if(key == 'c') c = color(random(94),random(132,177),random(225,255));
+  
 }
