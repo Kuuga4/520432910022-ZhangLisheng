@@ -1,0 +1,59 @@
+int posX = 170;
+int posY = 130;
+
+float r = 94.0;
+float g = 177.0;
+float b = 254.0;  
+
+//color a = #0297F3;
+//color b = #F51B1C;
+//color c = #18F5E2;
+//color d = #F2F32A;
+//color e = #000000;
+
+//color[] palette = {a,b,c,d,e,};
+
+
+
+void moveRect() {
+  
+  //int ranNum = floor(random(0,5));
+  //fill( palette[ranNum] );
+  //stroke( palette[ranNum] );
+  
+  fill(r,g,b);
+  stroke(r,g,b);
+  rect(posX, posY, 25, 25);
+    
+}
+
+void keyPressed(){
+  if((posX < 1440) && (posX >138 && posY < 950) && (posY >106)){
+    if(keyCode == UP){
+       posY -= 25;
+       r += 5;
+       g += 5;
+       b += 5;
+    }
+    if(keyCode == DOWN){
+      posY += 25;
+       r -= 4;
+       g -= 4;
+       b -= 4;      
+    }
+    if(keyCode == RIGHT){
+      posX += 25;
+       r -= 5;
+       g -= 5;      
+    }
+    if(keyCode == LEFT){
+      posX -= 25;
+       r += 6;
+       g += 6;      
+    }
+    if(key == 's' || key == 'S'){
+         save("my_works/painting"+year()+"_"+month()+"_"+day()
+            +"_"+hour()+"_"+minute()+"_"+second()+".png"); 
+    }    
+  }
+}
