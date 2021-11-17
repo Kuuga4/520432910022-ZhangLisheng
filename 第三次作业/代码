@@ -1,96 +1,68 @@
-int row = 6;
-int col = 6;
-int cellSize = 200;
-int unitTrans = 150;
-
 void setup(){
   size(800,600);
-  background(187);
-  drawMondrian();
-}
-
-void shapeA(){
-  stroke(0);
-  strokeWeight(4);
-  fill(random(225,255));
-  rect(0,0,cellSize,cellSize);
-}
-
-void shapeB(){
-  stroke(0);
-  strokeWeight(4);
-  rect(0,0,cellSize,cellSize);
-  fill(random(180,225));
-  rect(0,cellSize/8,cellSize,cellSize/8*3);
-}
-
-void shapeC(){
-  stroke(0);
-  strokeWeight(4);
-  rect(0,0,cellSize,cellSize);
-  fill(random(135,180));
-  rect(0,0,cellSize,cellSize/8);
-}
-
-void shapeD(){
-  stroke(0);
-  strokeWeight(4);
-  rect(0,0,cellSize,cellSize);
-  fill(random(90,135));
-  rect(0,0,cellSize/3,cellSize);
-  rect(cellSize/6,0,cellSize/6*2,cellSize/6);
-}
-
-void shapeE(){
-  stroke(0);
-  strokeWeight(4);
-  rect(0,0,cellSize,cellSize);
-  fill(random(45,90));
-  rect(0,cellSize/16*3,cellSize,cellSize/4);
-}
-
-void shapeF(){
-  stroke(0);
-  strokeWeight(4);
-  rect(0,0,cellSize,cellSize);
-  fill(random(44));
-  rect(0,0,cellSize/3,cellSize);
-}
-
-void drawMondrian(){
-  for(int i = 0;i < row;i ++){
-    for(int j = 0;j < col;j ++){
-      pushMatrix();
-      translate(unitTrans + i*unitTrans,unitTrans + j*unitTrans);
-      rotate(PI/2*floor(random(4)));
-     int choice = floor(random(6));
-      switch(choice){
-        case 0:
-        shapeA();
-        break;
-        case 1:
-        shapeB();
-        break;
-        case 2:
-        shapeC();
-        break;
-        case 3:
-        shapeD();
-        break;
-        case 4:
-        shapeE();
-        break;
-        case 5:
-        shapeF();
-        break;
-      }
-      popMatrix();
-    }
-  }
+  background(255);
+  
+  new Rentangle(0,0,0,width,height);  
 }
 
 void draw(){
   if(mousePressed){
-    drawMondrian();
+  background(255);
+  new Rentangle(0,0,0,width,height);    
   }
+}
+
+class Rentangle{
+  color white = color(255);
+  color black = color(0);
+  color heavy_gray = color(51);
+  color gray = color(102);
+  color light_gray = color(204);  
+  
+  int rectModes;
+  int varityNum = 5;
+  float posX,posY;
+  float wid,hei;
+  
+  Rentangle(int i,float x,float y,float w,float h){
+    posX = x;
+    posY = y;
+    wid = w;
+    hei = h;
+    
+    if(i % 2 == 0) rectModes = 0;
+    else rectModes = 1;
+    
+    stroke(0);
+    strokeWeight(10);
+    if(i > 4) fill(chooseColor());
+    rect(x,y,w,h);
+    
+    
+    if(i < varityNum){
+      if(rectModes == 0){
+        float num = random(1,4);
+        new Rentangle(i+1,posX,posY,wid/num,hei);
+        new Rentangle(i+1,posX+(wid/num),posY,(wid-wid/num),hei);
+      }else{
+        float num = random(2,5);
+        new Rentangle(i+1,posX,posY,wid,hei/num);
+        new Rentangle(i+1,posX,posY+(hei/num),wid,(hei-hei/num));        
+      }
+    }
+ 
+  }
+  
+  color chooseColor(){
+    float rank = random(1);
+    color result;
+    if(rank > 0 && rank < 0.06) result = black;
+    else if (rank > 0.06 && rank < 0.12) result = heavy_gray;
+    else if (rank > 0.12 && rank < 0.24) result = gray;
+    else if (rank > 0.24 && rank < 0.48) result = light_gray;
+    else  result = white;
+    
+    return result;
+  }
+  
 }
